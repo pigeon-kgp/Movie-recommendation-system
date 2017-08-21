@@ -4,7 +4,7 @@ no_users=0
 curr_id=1
 no_movies=0
 movie_id={} #maps movie_id[their movie_id]=our_id
-with open('ml-latest-small/ratings.csv') as r:
+with open('data/ratings.csv') as r:
     reader = csv.reader(r, delimiter=",")
     reader.next()
     for row in reader:
@@ -12,7 +12,7 @@ with open('ml-latest-small/ratings.csv') as r:
         	no_users=int(row[0])
 
 
-with open('ml-latest-small/movies.csv') as r:
+with open('data/movies.csv') as r:
     reader = csv.reader(r, delimiter=",")
     reader.next()
     for row in reader:
@@ -30,4 +30,9 @@ with open('data/ratings.csv') as r:
     	Y[int(movie_id[row[1]])][int(row[0])]=float(row[2])
 
 
-np.savetxt('Y_matrix.txt',Y, delimiter=',')
+
+np.savetxt('data/Y_matrix.txt',Y, delimiter=',')
+f=open("data/dimensions.txt", "w")   # no_movies,no_users
+f.write(str(no_movies)+','+str(no_users))
+# print no_movies
+# print no_users
