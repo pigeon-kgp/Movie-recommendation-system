@@ -113,10 +113,13 @@ while i < abs(length)                                      % while not finished
       z3 = z3-z2;                    % z3 is now relative to the location of z2
     end
     if f2 > f1+z1*RHO*d1 || d2 > -SIG*d1
+      printf 'failure\n'
       break;                                                % this is a failure
     elseif d2 > SIG*d1
+      printf 'success\n'
       success = 1; break;                                             % success
     elseif M == 0
+      printf 'failure\n'
       break;                                                          % failure
     end
     A = 6*(f2-f3)/z3+3*(d2+d3);                      % make cubic extrapolation
