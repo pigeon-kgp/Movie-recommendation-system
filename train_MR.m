@@ -56,10 +56,10 @@ Theta = randn(num_users, num_features);
 initial_parameters = [X(:); Theta(:)];
 
 % Set options for fmincg
-options = optimset('GradObj', 'on', 'MaxIter', 100);
+options = optimset('GradObj', 'on', 'MaxIter', 10);
 
 % Set Regularization
-lambda = 10;
+lambda = 2;
 
 theta = fmincg (@(t)(cofiCostFunc1(t, Ynorm, R, num_users, num_movies, ...
                                 num_features, lambda)), ...
