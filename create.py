@@ -1,5 +1,5 @@
 import csv
-import numpy as np
+import numpy as np, scipy.io
 no_users=0
 curr_id=1
 no_movies=0
@@ -21,18 +21,17 @@ with open('data/movies.csv') as r:
 
 no_movies=len(movie_id)
 
-Y=np.zeros((no_movies+1, no_users+1))
-np.set_printoptions(threshold=np.nan)
+Y=np.zeros((no_movies, no_users))
+# np.set_printoptions(threshold=np.nan)
 with open('data/ratings.csv') as r:
     reader = csv.reader(r, delimiter=",")
     reader.next()
     for row in reader:
-    	Y[int(movie_id[row[1]])][int(row[0])]=float(row[2])
+    	Y[int(movie_id[row[1]])-1][int(row[0])-1]=float(row[2])
 
-
-
-np.savetxt('data/Y_matrix.txt',Y, delimiter=',')
-f=open("data/dimensions.txt", "w")   # no_movies,no_users
-f.write(str(no_movies)+','+str(no_users))
-# print no_movies
-# print no_users
+print("no_movies =",no_movies,"no_users=",no_users);
+# np.savetxt('Y_matrix.txt',Y, delimiter=',')
+scipy.io.savemat('Y_matrix1.mat', mdict={'Y':Y})
+f=open("numbers_users_movies.txt",'w')
+f.write(str(Y.shape[0])+" ")
+f.write(str(Y.shape[1]))
