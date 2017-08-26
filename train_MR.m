@@ -47,7 +47,7 @@ fprintf("normalization done \n" );
 %  Useful Values
 num_users = size(Y, 2);
 num_movies = size(Y, 1);
-num_features = 10;
+num_features = 19;
 
 % Set Initial Parameters (Theta, X)
 X = randn(num_movies, num_features);
@@ -56,7 +56,7 @@ Theta = randn(num_users, num_features);
 initial_parameters = [X(:); Theta(:)];
 
 % Set options for fmincg
-options = optimset('GradObj', 'on', 'MaxIter', 10);
+options = optimset('GradObj', 'on', 'MaxIter', 100);
 
 % Set Regularization
 lambda = 2;
@@ -100,3 +100,6 @@ for i = 1:length(my_ratings)
                  movieList{i});
     end
 end
+
+save X_mov_feat.mat X
+
