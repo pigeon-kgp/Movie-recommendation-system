@@ -3,7 +3,7 @@ load('users.mat');
 K = 10;
 num_of_features = 19;
 max_iters = 10;
-num_of_users =  size(users,2)
+num_of_users =  size(users,2);
 
 pos = normrnd(0,1,10,19);
 
