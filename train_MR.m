@@ -43,6 +43,7 @@ R = [(my_ratings ~= 0) R];
 
 %  Normalize Ratings
 [Ynorm, Ymean] = normalizeRatings(Y, R);
+fprintf("Ymean = %f",Ymean)
 fprintf("normalization done \n" );
 %  Useful Values
 num_users = size(Y, 2);
