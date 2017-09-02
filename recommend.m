@@ -9,14 +9,14 @@ Y=zeros(11,2); %movIid, rating
 movieList = loadMovieList();
 
 my_ratings(1) = 5; Y(1,1)=1; Y(1,2)=5;
-my_ratings(98) = 5; Y(2,1)=98; Y(2,2)=5;
-my_ratings(7) = 5;  Y(3,1)=7; Y(3,2)=5;
-my_ratings(12)= 5;  Y(4,1)=12; Y(4,2)=5;
-my_ratings(54) = 5; Y(5,1)=54; Y(5,2)=5;
-my_ratings(64)= 5;  Y(6,1)=64; Y(6,2)=5;
+my_ratings(98) = 5; Y(2,1)=98; Y(2,2)=1;
+my_ratings(7) = 5;  Y(3,1)=7; Y(3,2)=1;
+my_ratings(12)= 5;  Y(4,1)=12; Y(4,2)=1;
+my_ratings(54) = 5; Y(5,1)=54; Y(5,2)=1;
+my_ratings(64)= 5;  Y(6,1)=64; Y(6,2)=1;
 my_ratings(66)= 3;  Y(7,1)=66; Y(7,2)=1;
-my_ratings(69) = 5; Y(8,1)=69; Y(8,2)=5;
-my_ratings(183) = 4; Y(9,1)=183; Y(9,2)=4;
+my_ratings(69) = 5; Y(8,1)=69; Y(8,2)=1;
+my_ratings(183) = 4; Y(9,1)=183; Y(9,2)=1;
 my_ratings(226) = 5; Y(10,1)=226; Y(10,2)=5;
 my_ratings(355)= 5;  Y(11,1)=355; Y(11,2)=5;
 
@@ -35,14 +35,30 @@ lambda=0.01;
 fprintf("\n final cost = %f \n",J)
 
 p=X*theta;
-p_orig=p;
-
+index=zeros(length(p), 1);
+for i=1:length(p)
+	index(i)=i;
+end
 max_rating=max(Y(:,2));
 max_predicted_score=max(p);
-p=5-abs(p-5)/max_predicted_score;
+for i=1:length(p)
+ if(p(i)>5 || p(i)<0)
+  p(i)=5-abs(p(i)-5)/max_predicted_score;
+ end
+end 
+p=max(0,p);
+p_orig=p;
+
 [r, ix] = sort(p, 'descend');
-
-
+figure;
+hold on;
+plot( index, p_orig);
+xlabel("movie_id"); 
+ylabel("rating");
+plot(Y(:,1),Y(:,2),'*', 'MarkerSize', 10, 'MarkerEdgeColor',"red");
+hold off;
+fprintf("\n Rating graph \n");
+pause;
 fprintf('\nTop recommendations for you:\n');
 for i=1:100
     j = ix(i);
